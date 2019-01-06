@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 import xyz.pietryga.utils.DrawUtils;
 
 @Entity
-@Table(name = "draw", schema = "prediction_system")
+@Table(name = "draw")
 @NamedQueries({
     @NamedQuery(name = "Draw.findAll", query = "SELECT d FROM Draw d")})
 public class Draw implements Serializable {

@@ -1,7 +1,5 @@
-USE prediction_system;
-
 CREATE TABLE IF NOT EXISTS draw (
-    date DATETIME NOT NULL,
+    date TIMESTAMP NOT NULL,
     multi VARCHAR(60),
     ticket VARCHAR(10),
     result VARCHAR(10),
