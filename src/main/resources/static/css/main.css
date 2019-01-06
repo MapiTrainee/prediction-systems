@@ -1,0 +1,72 @@
+/* INDEX */
+.header {
+    padding-top: 20px;
+}
+
+.header h1 {
+    font-size: 4em;
+}
+
+.space {
+    margin-top: 40px;
+}
+
+.page-header h1 {
+    font-size: 4em;
+}
+
+.btn-group-vertical {
+    border-radius: 5%;
+}
+
+/* PROGRESS BAR */
+.prog {
+    background-color: #cccccc;
+    overflow: hidden;
+}
+
+.panel-block {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.acc .row{
+    padding-top: 20px;
+}
+
+/* BLACK PANEL */
+.panel-black {
+    border: 1px solid #000 ;
+}
+
+.panel-black .panel-heading {
+    background-color: #000;
+    color: #fff;
+}
+
+/* TABLES */
+#multiTable tr td:first-child {
+    background-color: #ffe1ff;
+}
+
+#ticketTable tr td:nth-child(4) {
+    background-color: #ffe1ff;
+}
+
+td.under-strong {
+    background-color: #e6e6e6;
+}
+
+td.correct {
+    background-color: #9F5F9F;
+    color: #fff;
+}
+
+::selection {
+    text-shadow: none;
+    background: rgba(0,0,0,0.2);
+}
+
+footer {
+    margin-bottom: 30px;
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Systems MultiMulti</title>
+
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Main CSS -->
+        <link rel="stylesheet" href="css/main.css">
+
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header text-center">
+                <h1>Multi Multi</h1>
+                <h4>2/3 System</h4>
+            </div>
+
+            <div class="panel-block acc">
+                <h3 id="progress-basic">Skuteczność</h3>
+                <div class="prog">
+                    <div id="barThreeThird" class="progress-bar progress-bar-danger progress-bar-striped active" style="width: 33%">0</div>
+                    <div id="barTwoThird" class="progress-bar progress-bar-warning progress-bar-striped active" style="width: 33%">0</div>
+                    <div id="barCount" class="progress-bar progress-bar-default progress-bar-striped active" style="width: 34%">0</div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-2">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">Losowań</div>
+                            <div id="count" class="panel-body">0</div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">Trafionych 2/3</div>
+                            <div id="twoThird" class="panel-body">0</div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">Trafionych 3/3</div>
+                            <div id="threeThird"  class="panel-body">0</div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="panel panel-black">
+                            <div class="panel-heading">Czarna Seria</div>
+                            <div id="blackSeries" class="panel-body">0</div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">Plus Seria</div>
+                            <div id="plusSeries" class="panel-body">0</div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">Stan konta</div>
+                            <div id="amount" class="panel-body">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 id="progress-basic">Lista typów</h3>
+                <div class="row text-center">
+                    <div class="col-md-10">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">Wyniki</div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-condensed">
+                                    <tbody id="multiTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Typy</div>
+                            <table class="table table-bordered table-condensed">
+                                <tbody id="ticketTable">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Historia typów -->
+<!--            <div>
+                <h3>Historia typów</h3>
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">Statystyki</div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-condensed">
+                                    <tbody>
+                                        <tr>
+                                            <td>Rok-miesiąc</td>
+                                            <td>Trafień 2/3</td>
+                                            <td>Trafień 3/3</td>
+                                            <td>Procent trafień</td>
+                                            <td>Stan konta</td>
+                                            <td>Czarna seria</td>
+                                            <td>Plus seria</td>
+                                            <td>Losowań</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <!-- /Historia typów -->
+            
+        </div>
+        <footer class="text-center text-info">© 2016-2017 MultiMulti</footer>
+
+        <!-- PLUGINS -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
