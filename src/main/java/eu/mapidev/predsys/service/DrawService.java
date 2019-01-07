@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xyz.pietryga.predsys.service;
+package eu.mapidev.predsys.service;
 
 import java.util.Date;
-import xyz.pietryga.predsys.domain.Draw;
+import eu.mapidev.predsys.domain.Draw;
 
 /**
  *

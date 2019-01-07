@@ -1,4 +1,4 @@
-package xyz.pietryga.predsys.web;
+package eu.mapidev.predsys.web;
 
 import java.io.IOException;
 import java.util.Date;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import xyz.pietryga.predsys.domain.Draw;
-import xyz.pietryga.predsys.service.DrawService;
+import eu.mapidev.predsys.domain.Draw;
+import eu.mapidev.predsys.service.DrawService;
 
 @RestController
 public class DrawController {

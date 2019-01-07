@@ -1,4 +1,4 @@
-package xyz.pietryga.utils;
+package eu.mapidev.utils;
 
 import java.util.Set;
 import java.util.TreeSet;

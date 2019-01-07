@@ -1,4 +1,4 @@
-package xyz.pietryga.predsys.config;
+package eu.mapidev.predsys.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

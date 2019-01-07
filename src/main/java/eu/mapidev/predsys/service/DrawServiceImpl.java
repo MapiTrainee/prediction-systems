@@ -1,4 +1,4 @@
-package xyz.pietryga.predsys.service;
+package eu.mapidev.predsys.service;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -8,8 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import xyz.pietryga.predsys.domain.Draw;
-import xyz.pietryga.predsys.repository.DrawRepository;
+import eu.mapidev.predsys.domain.Draw;
+import eu.mapidev.predsys.repository.DrawRepository;
 
 @Service
 public class DrawServiceImpl implements DrawService {

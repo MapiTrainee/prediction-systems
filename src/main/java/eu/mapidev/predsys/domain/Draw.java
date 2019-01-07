@@ -1,4 +1,4 @@
-package xyz.pietryga.predsys.domain;
+package eu.mapidev.predsys.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
@@ -14,7 +14,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import xyz.pietryga.utils.DrawUtils;
+import eu.mapidev.utils.DrawUtils;
 
 @Entity
 @Table(name = "draw")

@@ -1,4 +1,4 @@
-package xyz.pietryga.predsys.config;
+package eu.mapidev.predsys.config;
 
 public class Profiles {
     

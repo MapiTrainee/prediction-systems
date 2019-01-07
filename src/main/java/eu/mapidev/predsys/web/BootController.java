@@ -1,5 +1,5 @@
 
-package xyz.pietryga.predsys.web;
+package eu.mapidev.predsys.web;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
