@@ -6,7 +6,7 @@ $(function () {
     });
 });
 
-function renderDraws(draws) {
+function renderDraws(multiMultiDraws) {
 
     var amount = 0;
     var twoThird = 0;
@@ -18,13 +18,13 @@ function renderDraws(draws) {
     var steadyPlus = 0;
     var steadyBlack = 0;
 
-    $.each(draws, function (i, draw) {
+    $.each(multiMultiDraws, function (i, multiMultiDraw) {
         var multiTable = [];
         var ticketTable = ["<tr>"];
 
-        multiTable.push((new Date(draw.date)).toLocaleString());
-        if (draw.multi !== null) {
-            $.each(draw.multi, function (j, m) {
+        multiTable.push((new Date(multiMultiDraw.date)).toLocaleString());
+        if (multiMultiDraw.draw.length !== 0) {
+            $.each(multiMultiDraw.draw, function (j, m) {
                 multiTable.push(m);
             });
         } else {
@@ -34,11 +34,11 @@ function renderDraws(draws) {
         }
         $('#multiTable').append("<tr><td>" + multiTable.join("</td><td>") + "</td></tr>");
 
-        if (draw.ticket !== null) {
-            var resultArray = draw.result;
+        if (multiMultiDraw.ticket !== null) {
+            var resultArray = multiMultiDraw.result;
             var counter = 0;
 
-            $.each(draw.ticket, function (l, t) {
+            $.each(multiMultiDraw.ticket, function (l, t) {
 
                 if (resultArray !== null) {
                     if (resultArray[l] === 1) {
@@ -107,7 +107,7 @@ function renderDraws(draws) {
     if (amount >= 0) {
         css = "text-success";
     }
-    var count = draws.length;
+    var count = multiMultiDraws.length;
 
     $('#count').text(count);
     $('#twoThird').text(twoThird);
