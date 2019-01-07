@@ -1,92 +1,92 @@
 package eu.mapidev.predsys.service;
 
+import eu.mapidev.predsys.domain.AbstractDraw;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import eu.mapidev.predsys.domain.Draw;
-import eu.mapidev.predsys.repository.DrawRepository;
+import eu.mapidev.predsys.domain.MultiMultiDraw;
+import eu.mapidev.predsys.repository.MultiMultiDrawRepository;
 
 @Service
 public class DrawServiceImpl implements DrawService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Draw.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MultiMultiDraw.class);
 
     @Autowired
-    private DrawRepository drawRepository;
+    private MultiMultiDrawRepository drawRepository;
 
     @Override
-    public Iterable<Draw> getDraws() {
-        return drawRepository.findAllByOrderByDateAsc();
+    public Iterable<? extends AbstractDraw> getDraws() {
+	return drawRepository.findAllByOrderByDateAsc();
     }
 
     @Override
-    public Draw getDraw(Date date) {
-        return drawRepository.findOne(date);
+    public MultiMultiDraw getDraw(Date date) {
+	return drawRepository.findOne(date);
     }
 
     @Override
-    public Draw updateDraw(Draw draw) {
+    public MultiMultiDraw updateDraw(AbstractDraw draw) {
+	throw new UnsupportedOperationException("updateDraw not implemented yet");
+	/*
+	if (multiMultiDraw.isMulti() == multiMultiDraw.isTicket()) {
+	    throw new IllegalStateException("'multi' or 'ticket' must be different from null and can not be set in one request!");
+	}
 
-        if (draw.isMulti() == draw.isTicket()) {
-            throw new IllegalStateException("'multi' or 'ticket' must be different from null and can not be set in one request!");
-        }
+	if (drawRepository.exists(multiMultiDraw.getDate())) {
+	    MultiMultiDraw existingDraw = drawRepository.findOne(multiMultiDraw.getDate());
+	    if (existingDraw.isMulti() && existingDraw.isTicket()) {
+		throw new IllegalStateException("calculated draw can not be change!");
+	    } else if (existingDraw.isMulti() && multiMultiDraw.isTicket()) {
+		List<Integer> multiSet = existingDraw.getDrawAsNumbers();
+		List<Integer> ticketSet = multiMultiDraw.getTicketAsNumbers();
 
-        if (drawRepository.exists(draw.getDate())) {
-            Draw existingDraw = drawRepository.findOne(draw.getDate());
-            if (existingDraw.isMulti() && existingDraw.isTicket()) {
-                throw new IllegalStateException("calculated draw can not be change!");
-            } else if (existingDraw.isMulti() && draw.isTicket()) {
-                Set<Integer> multiSet = existingDraw.getMulti();
-                Set<Integer> ticketSet = draw.getTicket();
+		int[] resultArray = new int[3];
+		int i = 0;
+		for (Integer ticketValue : ticketSet) {
+		    if (multiSet.contains(ticketValue)) {
+			resultArray[i] = 1;
+		    }
+		    i++;
+		}
 
-                int[] resultArray = new int[3];
-                int i = 0;
-                for (Integer ticketValue : ticketSet) {
-                    if (multiSet.contains(ticketValue)) {
-                        resultArray[i] = 1;
-                    }
-                    i++;
-                }
+		existingDraw.updateResult(resultArray);
+		existingDraw.setTicket((TreeSet<Integer>) ticketSet);
+		return drawRepository.save(existingDraw);
 
-                existingDraw.updateResult(resultArray);
-                existingDraw.setTicket((TreeSet<Integer>) ticketSet);
-                return drawRepository.save(existingDraw);
+	    } else if (existingDraw.isTicket() && multiMultiDraw.isMulti()) {
+		List<Integer> multiSet = multiMultiDraw.getDrawAsNumbers();
+		List<Integer> ticketSet = existingDraw.getTicketAsNumbers();
 
-            } else if (existingDraw.isTicket() && draw.isMulti()) {
+		int[] resultArray = new int[3];
+		int i = 0;
+		for (Integer ticketValue : ticketSet) {
+		    if (multiSet.contains(ticketValue)) {
+			resultArray[i] = 1;
+		    }
+		    i++;
+		}
 
-                Set<Integer> multiSet = draw.getMulti();
-                Set<Integer> ticketSet = existingDraw.getTicket();
+		existingDraw.updateResult(resultArray);
+		existingDraw.setDraw((TreeSet<Integer>) multiSet);
 
-                int[] resultArray = new int[3];
-                int i = 0;
-                for (Integer ticketValue : ticketSet) {
-                    if (multiSet.contains(ticketValue)) {
-                        resultArray[i] = 1;
-                    }
-                    i++;
-                }
+		return drawRepository.save(existingDraw);
+	    }
 
-                existingDraw.updateResult(resultArray);
-                existingDraw.setMulti((TreeSet<Integer>) multiSet);
-
-                return drawRepository.save(existingDraw);
-            }
-
-        }
-        return drawRepository.save(draw);
+	}
+	return drawRepository.save(multiMultiDraw);
+	 */
     }
 
     @Override
-    public Draw getLastDraw() {
-        Iterator<Draw> iterator = drawRepository.findFirstByOrderByDateDesc().iterator();
-        if (iterator.hasNext()) {
-            return iterator.next();
-        }
-        throw new IllegalStateException("Last draw dosen't exist");
+    public MultiMultiDraw getLastDraw() {
+	Iterator<MultiMultiDraw> iterator = drawRepository.findFirstByOrderByDateDesc().iterator();
+	if (iterator.hasNext()) {
+	    return iterator.next();
+	}
+	throw new IllegalStateException("Last draw dosen't exist");
     }
 }

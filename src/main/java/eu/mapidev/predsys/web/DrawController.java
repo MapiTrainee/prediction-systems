@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import eu.mapidev.predsys.domain.Draw;
+import eu.mapidev.predsys.domain.MultiMultiDraw;
 import eu.mapidev.predsys.service.DrawService;
 
 @RestController
@@ -37,7 +37,7 @@ public class DrawController {
     }
 
     @RequestMapping(value = "/draw", method = {RequestMethod.POST, RequestMethod.PUT})
-    public ResponseEntity<?> updateDraw(@RequestBody Draw draw) {
+    public ResponseEntity<?> updateDraw(@RequestBody MultiMultiDraw draw) {
         return new ResponseEntity<>(drawService.updateDraw(draw), HttpStatus.CREATED);
     }
 
