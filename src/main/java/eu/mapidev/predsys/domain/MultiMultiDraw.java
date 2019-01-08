@@ -2,11 +2,11 @@ package eu.mapidev.predsys.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.TreeSet;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import eu.mapidev.utils.NumbersUtils;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "multimulti")
@@ -16,7 +16,7 @@ public class MultiMultiDraw extends AbstractDraw implements Serializable {
 	super();
     }
 
-    public MultiMultiDraw(Date date) {
+    public MultiMultiDraw(LocalDateTime date) {
 	super(date);
     }
 

@@ -3,31 +3,30 @@ package eu.mapidev.predsys.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eu.mapidev.utils.NumbersUtils;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.TreeSet;
-import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import org.hibernate.validator.constraints.NotEmpty;
 
 @MappedSuperclass
 public abstract class AbstractDraw {
 
     @Id
-    @Basic(optional = false)
-    @Column(name = "date")
-    @Temporal(TemporalType.TIMESTAMP)
-    protected Date date;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    protected Long id;
+
+    @Column(name = "date", nullable = false)
+    protected LocalDateTime date;
 
     @Column(name = "draw")
     protected String draw;
 
-    @NotEmpty
-    @Column(name = "ticket")
+    @Column(name = "ticket", nullable = false)
     protected String ticket;
 
     @Column(name = "result")
@@ -36,8 +35,8 @@ public abstract class AbstractDraw {
     public AbstractDraw() {
     }
 
-    public AbstractDraw(Date date) {
-	this.date = date;
+    public AbstractDraw(LocalDateTime localDateTime) {
+	this.date = localDateTime;
     }
 
     @JsonProperty("ticket")
@@ -59,12 +58,12 @@ public abstract class AbstractDraw {
 
     public abstract void setTicket(TreeSet<Integer> ticketNumbers);
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
 	return date;
     }
 
-    public void setDate(Date date) {
-	this.date = date;
+    public void setDate(LocalDateTime localDateTime) {
+	this.date = localDateTime;
     }
 
     @JsonIgnore

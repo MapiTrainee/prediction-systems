@@ -1,13 +1,13 @@
 package eu.mapidev.predsys.service;
 
 import eu.mapidev.predsys.domain.AbstractDraw;
-import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import eu.mapidev.predsys.domain.MultiMultiDraw;
 import eu.mapidev.predsys.repository.MultiMultiDrawRepository;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -26,7 +26,7 @@ public class MultiMultiDrawService implements DrawService {
     }
 
     @Override
-    public AbstractDraw getDraw(Date date) {
+    public AbstractDraw getDraw(LocalDateTime date) {
 	return drawRepository.findOne(date);
     }
 
@@ -86,7 +86,7 @@ public class MultiMultiDrawService implements DrawService {
     @Override
     public MultiMultiDraw getLastDraw() {
 	List<MultiMultiDraw> draws = drawRepository.findFirstByOrderByDateDesc();
-	if(!draws.isEmpty()){
+	if (!draws.isEmpty()) {
 	    return draws.get(0);
 	}
 	throw new IllegalStateException("Last draw dosen't exist");
