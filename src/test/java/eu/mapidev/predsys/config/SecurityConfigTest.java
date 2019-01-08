@@ -29,6 +29,21 @@ public class SecurityConfigTest {
     }
 
     @Test
+    public void anonymousShouldHaveAccessToStaticResources() throws Exception {
+	mockMvc.perform(get("/css/main.css"))
+		.andExpect(unauthenticated())
+		.andExpect(status().isOk());
+
+	mockMvc.perform(get("/img/favicon.ico"))
+		.andExpect(unauthenticated())
+		.andExpect(status().isOk());
+
+	mockMvc.perform(get("/js/main.js"))
+		.andExpect(unauthenticated())
+		.andExpect(status().isOk());
+    }
+
+    @Test
     public void anonymousShouldBeAbleToGetDrawResources() throws Exception {
 	mockMvc.perform(get("/draw"))
 		.andExpect(unauthenticated())
