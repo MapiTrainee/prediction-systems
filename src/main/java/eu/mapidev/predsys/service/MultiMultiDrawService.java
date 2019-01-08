@@ -2,16 +2,18 @@ package eu.mapidev.predsys.service;
 
 import eu.mapidev.predsys.domain.AbstractDraw;
 import java.util.Date;
-import java.util.Iterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import eu.mapidev.predsys.domain.MultiMultiDraw;
 import eu.mapidev.predsys.repository.MultiMultiDrawRepository;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 @Service
-public class DrawServiceImpl implements DrawService {
+@Qualifier("MultiMulti")
+public class MultiMultiDrawService implements DrawService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MultiMultiDraw.class);
 
@@ -19,17 +21,17 @@ public class DrawServiceImpl implements DrawService {
     private MultiMultiDrawRepository drawRepository;
 
     @Override
-    public Iterable<? extends AbstractDraw> getDraws() {
-	return drawRepository.findAllByOrderByDateAsc();
+    public Iterable<? extends AbstractDraw> getAllDraws() {
+	return drawRepository.findAll();
     }
 
     @Override
-    public MultiMultiDraw getDraw(Date date) {
+    public AbstractDraw getDraw(Date date) {
 	return drawRepository.findOne(date);
     }
 
     @Override
-    public MultiMultiDraw updateDraw(AbstractDraw draw) {
+    public AbstractDraw updateDraw(AbstractDraw draw) {
 	throw new UnsupportedOperationException("updateDraw not implemented yet");
 	/*
 	if (multiMultiDraw.isMulti() == multiMultiDraw.isTicket()) {
@@ -83,9 +85,9 @@ public class DrawServiceImpl implements DrawService {
 
     @Override
     public MultiMultiDraw getLastDraw() {
-	Iterator<MultiMultiDraw> iterator = drawRepository.findFirstByOrderByDateDesc().iterator();
-	if (iterator.hasNext()) {
-	    return iterator.next();
+	List<MultiMultiDraw> draws = drawRepository.findFirstByOrderByDateDesc();
+	if(!draws.isEmpty()){
+	    return draws.get(0);
 	}
 	throw new IllegalStateException("Last draw dosen't exist");
     }

@@ -3,7 +3,6 @@ package eu.mapidev.predsys.web;
 import java.io.IOException;
 import java.util.Date;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,31 +13,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import eu.mapidev.predsys.domain.MultiMultiDraw;
 import eu.mapidev.predsys.service.DrawService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 @RestController
-public class DrawController {
+public class MultiMultiDrawController {
 
     @Autowired
-    private DrawService drawService;
+    @Qualifier("MultiMulti")
+    private DrawService service;
 
-    @RequestMapping(value = "/draw", method = RequestMethod.GET)
-    public ResponseEntity<?> getDraws() {
-        return new ResponseEntity<>(drawService.getDraws(), HttpStatus.OK);
+    @RequestMapping(value = "/multi", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllDraws() {
+        return new ResponseEntity<>(service.getAllDraws(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/draw/last", method = RequestMethod.GET)
+    @RequestMapping(value = "/multi/last", method = RequestMethod.GET)
     public ResponseEntity<?> getLastDraw() {
-        return new ResponseEntity<>(drawService.getLastDraw(), HttpStatus.OK);
+        return new ResponseEntity<>(service.getLastDraw(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/draw/{timestamp}", method = RequestMethod.GET)
+    @RequestMapping(value = "/multi/{timestamp}", method = RequestMethod.GET)
     public ResponseEntity<?> getDraw(@PathVariable("timestamp") Long timestamp) {
-        return new ResponseEntity<>(drawService.getDraw(new Date(timestamp)), HttpStatus.OK);
+        return new ResponseEntity<>(service.getDraw(new Date(timestamp)), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/draw", method = {RequestMethod.POST, RequestMethod.PUT})
+    @RequestMapping(value = "/multi", method = {RequestMethod.POST, RequestMethod.PUT})
     public ResponseEntity<?> updateDraw(@RequestBody MultiMultiDraw draw) {
-        return new ResponseEntity<>(drawService.updateDraw(draw), HttpStatus.CREATED);
+        return new ResponseEntity<>(service.updateDraw(draw), HttpStatus.CREATED);
     }
 
     @ExceptionHandler({IllegalStateException.class})

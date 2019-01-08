@@ -138,7 +138,7 @@ function renderDraws(multiMultiDraws) {
 function getDraws() {
     return $.ajax({
         type: "GET",
-        url: "/draw",
+        url: "/multi",
         dataType: "json",
         error: function () {
             alert("Błąd pobrania losów!");

@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -37,12 +36,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 	httpSecurity.authorizeRequests()
 		.antMatchers("/profile", "/console/**").hasRole("ADMIN")
-		.antMatchers(HttpMethod.GET, "/draw/**").permitAll()
+		.antMatchers(HttpMethod.GET, "/multi/**").permitAll()
 		.antMatchers(AUTH_WHITELIST).permitAll()
 		.antMatchers("/").permitAll()
 		.anyRequest().authenticated()
 		.and().httpBasic()
-		.and().csrf().ignoringAntMatchers("/console/**", "/draw/**")
+		.and().csrf().ignoringAntMatchers("/console/**", "/multi/**")
 		.and().headers().frameOptions().sameOrigin();
     }
 

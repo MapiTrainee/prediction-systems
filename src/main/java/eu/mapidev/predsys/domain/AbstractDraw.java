@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @MappedSuperclass
 public abstract class AbstractDraw {
@@ -25,6 +26,7 @@ public abstract class AbstractDraw {
     @Column(name = "draw")
     protected String draw;
 
+    @NotEmpty
     @Column(name = "ticket")
     protected String ticket;
 

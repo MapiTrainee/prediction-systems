@@ -7,7 +7,7 @@ public interface DrawService {
 
     AbstractDraw getDraw(Date date);
 
-    Iterable<? extends AbstractDraw> getDraws();
+    Iterable<? extends AbstractDraw> getAllDraws();
 
     AbstractDraw updateDraw(AbstractDraw draw);
 
