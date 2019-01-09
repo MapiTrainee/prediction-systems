@@ -44,8 +44,8 @@ public class SecurityConfigTest {
     }
 
     @Test
-    public void anonymousShouldBeAbleToGetDrawResources() throws Exception {
-	mockMvc.perform(get("/draw"))
+    public void anonymousShouldBeAbleToGetMultiResources() throws Exception {
+	mockMvc.perform(get("/multi"))
 		.andExpect(unauthenticated())
 		.andExpect(status().isOk());
     }
