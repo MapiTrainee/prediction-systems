@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eu.mapidev.utils.NumbersUtils;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
-import java.util.TreeSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,8 +38,10 @@ public abstract class AbstractDraw {
     public AbstractDraw() {
     }
 
-    public AbstractDraw(LocalDateTime localDateTime) {
+    public AbstractDraw(Long id, LocalDateTime localDateTime, String ticket) {
+	this.id = id;
 	this.date = localDateTime;
+	this.ticket = ticket;
     }
 
     @JsonProperty("ticket")
@@ -54,9 +59,65 @@ public abstract class AbstractDraw {
 	return NumbersUtils.convertTextToNumbers(draw);
     }
 
-    public abstract void setDraw(TreeSet<Integer> drawNumbers);
+    public abstract void setDraw(List<Integer> drawNumbers);
 
-    public abstract void setTicket(TreeSet<Integer> ticketNumbers);
+    protected void setDraw(List<Integer> drawNumbers, final int numbersSize, final int minNumberValue, final int maxNumberValue) {
+	if (numbersNotNull(drawNumbers)
+		&& numbersHaveSize(drawNumbers, numbersSize)
+		&& numbersAreInRange(drawNumbers, minNumberValue, maxNumberValue)
+		&& numbersAreUnique(drawNumbers)) {
+	    Collections.sort(drawNumbers);
+	    draw = NumbersUtils.convertNumbersToText(drawNumbers);
+	} else {
+	    draw = null;
+	}
+    }
+
+    public abstract void setTicket(List<Integer> ticketNumbers);
+
+    protected void setTicket(List<Integer> ticketNumbers, final int numbersSize, final int minNumberValue, final int maxNumberValue) {
+	if (numbersNotNull(ticketNumbers)
+		&& numbersHaveSize(ticketNumbers, numbersSize)
+		&& numbersAreInRange(ticketNumbers, minNumberValue, maxNumberValue)
+		&& numbersAreUnique(ticketNumbers)) {
+	    Collections.sort(ticketNumbers);
+	    ticket = NumbersUtils.convertNumbersToText(ticketNumbers);
+	} else {
+	    ticket = null;
+	}
+    }
+
+    private boolean numbersNotNull(Collection<Integer> numbers) {
+	return numbers != null;
+    }
+
+    private boolean numbersHaveSize(Collection<Integer> numbers, final int numbersSize) {
+	if (numbers.size() != numbersSize) {
+	    throw new IllegalStateException(
+		    String.format("Size of numbers must be equal %d, but this time was %d",
+			    numbersSize, numbers.size()));
+	}
+	return true;
+    }
+
+    private boolean numbersAreInRange(Collection<Integer> numbers, final int minNumberValue, final int maxNumberValue) {
+	for (int number : numbers) {
+	    if (number < minNumberValue || number > maxNumberValue) {
+		throw new IllegalStateException(
+			String.format("Each element of numbers must be in range [%d-%d], but this time was %d!",
+				minNumberValue, maxNumberValue, number));
+	    }
+	}
+	return true;
+    }
+
+    private boolean numbersAreUnique(Collection<Integer> numbers) {
+	Set<Integer> uniqueNumbers = new HashSet<>(numbers);
+	if (numbers.size() != uniqueNumbers.size()) {
+	    throw new IllegalStateException("Each element must be unique!");
+	}
+	return true;
+    }
 
     public LocalDateTime getDate() {
 	return date;
