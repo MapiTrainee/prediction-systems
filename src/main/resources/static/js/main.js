@@ -133,10 +133,10 @@ function renderDraws(multiMultiDraws) {
 function getDraws() {
     return $.ajax({
         type: "GET",
-        url: "/multi",
+        url: "/multi/draw",
         dataType: "json",
         error: function () {
-            alert("Cannot read draws from '/multi'");
+            alert("Cannot read draws from '/draw'");
         }
     });
 }
