@@ -16,20 +16,22 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@RestController
+@RequestMapping("/multi")
+@RestController()
 public class MultiMultiDrawController {
 
     @Autowired
     @Qualifier("MultiMulti")
     private DrawService service;
 
-    @GetMapping("/multi")
+    @GetMapping("/draw")
     public ResponseEntity<?> getAllDraws() {
 	return new ResponseEntity<>(service.getAllDraws(), HttpStatus.OK);
     }
 
-    @GetMapping("/multi/{year}/{month}/{day}/{hour}/{minute}")
+    @GetMapping("/draw/{year}/{month}/{day}/{hour}/{minute}")
     public ResponseEntity<?> getDrawByDatetext(@PathVariable int year,
 	    @PathVariable int month,
 	    @PathVariable int day,
@@ -38,12 +40,12 @@ public class MultiMultiDrawController {
 	return new ResponseEntity<>(service.getDraw(LocalDateTime.of(year, month, day, hour, minute)), HttpStatus.OK);
     }
 
-    @PostMapping("/multi")
+    @PostMapping("/draw")
     public ResponseEntity<?> createTicketDraw(@RequestBody MultiMultiDraw draw) {
 	return new ResponseEntity<>(service.createTicketDraw(draw), HttpStatus.CREATED);
     }
 
-    @PutMapping("/multi")
+    @PutMapping("/draw")
     public ResponseEntity<?> createResult(@RequestBody MultiMultiDraw draw) {
 	return new ResponseEntity<>(service.createResult(draw), HttpStatus.CREATED);
     }
