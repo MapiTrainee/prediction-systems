@@ -6,7 +6,7 @@ $(function () {
     });
 });
 
-function renderDraws(draws) {
+function renderDraws(multiMultiDraws) {
 
     var amount = 0;
     var twoThird = 0;
@@ -18,13 +18,13 @@ function renderDraws(draws) {
     var steadyPlus = 0;
     var steadyBlack = 0;
 
-    $.each(draws, function (i, draw) {
+    $.each(multiMultiDraws, function (i, multiMultiDraw) {
         var multiTable = [];
         var ticketTable = ["<tr>"];
 
-        multiTable.push((new Date(draw.date)).toLocaleString());
-        if (draw.multi !== null) {
-            $.each(draw.multi, function (j, m) {
+        multiTable.push((new Date(multiMultiDraw.date)).toLocaleString());
+        if (multiMultiDraw.draw.length !== 0) {
+            $.each(multiMultiDraw.draw, function (j, m) {
                 multiTable.push(m);
             });
         } else {
@@ -34,14 +34,14 @@ function renderDraws(draws) {
         }
         $('#multiTable').append("<tr><td>" + multiTable.join("</td><td>") + "</td></tr>");
 
-        if (draw.ticket !== null) {
-            var resultArray = draw.result;
+        if (multiMultiDraw.ticket !== null) {
+            var resultArray = multiMultiDraw.result;
             var counter = 0;
 
-            $.each(draw.ticket, function (l, t) {
+            $.each(multiMultiDraw.ticket, function (i, t) {
 
                 if (resultArray !== null) {
-                    if (resultArray[l] === 1) {
+                    if (resultArray[i] === 1) {
                         ticketTable.push("<td class='correct'>" + t + "</td>");
                         counter++;
                     } else {
@@ -66,7 +66,6 @@ function renderDraws(draws) {
                     maxPlus = steadyPlus;
 
                 steadyBlack = 0;
-
                 ticketTable.push("<td class='text-success'>" + "+" + 8.5 + "</td></tr>");
             } else if (counter === 3) {
                 amount += 40.5;
@@ -80,7 +79,6 @@ function renderDraws(draws) {
                     maxPlus = steadyPlus;
 
                 steadyBlack = 0;
-
                 ticketTable.push("<td class='text-success'>" + "+" + 40.5 + "</td></tr>");
             } else {
                 amount -= 7.5;
@@ -93,13 +91,11 @@ function renderDraws(draws) {
                     maxPlus = steadyPlus;
 
                 steadyPlus = 0;
-
                 ticketTable.push("<td class='text-danger'>" + "-" + 7.5 + "</td></tr>");
             }
         } else {
             ticketTable.push("<td>-</td><td>-</td><td>-</td><td>-</td></tr>");
         }
-
         $('#ticketTable').append(ticketTable.join(""));
 
     });
@@ -107,7 +103,7 @@ function renderDraws(draws) {
     if (amount >= 0) {
         css = "text-success";
     }
-    var count = draws.length;
+    var count = multiMultiDraws.length;
 
     $('#count').text(count);
     $('#twoThird').text(twoThird);
@@ -132,16 +128,15 @@ function renderDraws(draws) {
     $('#barTwoThird').css("width", barTwoThird + "%");
     $('#barCount').text(barCount + "%");
     $('#barCount').css("width", barCount + "%");
-
 }
 
 function getDraws() {
     return $.ajax({
         type: "GET",
-        url: "/draw",
+        url: "/multi",
         dataType: "json",
         error: function () {
-            alert("Błąd pobrania losów!");
+            alert("Cannot read draws from '/multi'");
         }
     });
 }
