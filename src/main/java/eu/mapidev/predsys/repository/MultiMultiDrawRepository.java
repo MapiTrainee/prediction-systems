@@ -7,10 +7,11 @@ import eu.mapidev.predsys.domain.MultiMultiDraw;
 import java.time.LocalDateTime;
 
 @Repository
-public interface MultiMultiDrawRepository extends CrudRepository<MultiMultiDraw, LocalDateTime> {
-    
+public interface MultiMultiDrawRepository extends CrudRepository<MultiMultiDraw, Long> {
+
     public List<MultiMultiDraw> findAllByOrderByDateAsc();
-    
-    public List<MultiMultiDraw> findFirstByOrderByDateDesc();
-    
+
+    public List<MultiMultiDraw> findFirstByOrderByDateAsc();
+
+    public MultiMultiDraw findByDate(LocalDateTime date);
 }

@@ -9,7 +9,11 @@ public interface DrawService {
 
     Iterable<? extends AbstractDraw> getAllDraws();
 
-    AbstractDraw updateDraw(AbstractDraw draw);
+    AbstractDraw createResult(AbstractDraw abstractDraw);
+
+    AbstractDraw createTicketDraw(AbstractDraw abstractDraw);
 
     AbstractDraw getLastDraw();
+    
+    void deleteDraw(AbstractDraw abstractDraw);
 }

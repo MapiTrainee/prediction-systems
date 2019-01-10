@@ -14,8 +14,8 @@ public class MultiMultiDraw extends AbstractDraw implements Serializable {
 	super();
     }
 
-    public MultiMultiDraw(Long id, LocalDateTime localDateTime, String ticket) {
-	super(id, localDateTime, ticket);
+    public MultiMultiDraw(LocalDateTime localDateTime, String ticket) {
+	super(localDateTime, ticket);
     }
 
     @Override

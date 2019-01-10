@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -38,8 +39,7 @@ public abstract class AbstractDraw {
     public AbstractDraw() {
     }
 
-    public AbstractDraw(Long id, LocalDateTime localDateTime, String ticket) {
-	this.id = id;
+    public AbstractDraw(LocalDateTime localDateTime, String ticket) {
 	this.date = localDateTime;
 	this.ticket = ticket;
     }
@@ -59,6 +59,7 @@ public abstract class AbstractDraw {
 	return NumbersUtils.convertTextToNumbers(draw);
     }
 
+    @JsonProperty("draw")
     public abstract void setDraw(List<Integer> drawNumbers);
 
     protected void setDraw(List<Integer> drawNumbers, final int numbersSize, final int minNumberValue, final int maxNumberValue) {
@@ -73,6 +74,7 @@ public abstract class AbstractDraw {
 	}
     }
 
+    @JsonProperty("ticket")
     public abstract void setTicket(List<Integer> ticketNumbers);
 
     protected void setTicket(List<Integer> ticketNumbers, final int numbersSize, final int minNumberValue, final int maxNumberValue) {
@@ -132,6 +134,7 @@ public abstract class AbstractDraw {
 	return draw;
     }
 
+    @JsonIgnore
     public void setDraw(String draw) {
 	this.draw = draw;
     }
@@ -141,6 +144,7 @@ public abstract class AbstractDraw {
 	return ticket;
     }
 
+    @JsonIgnore
     public void setTicket(String ticket) {
 	this.ticket = ticket;
     }
@@ -150,8 +154,39 @@ public abstract class AbstractDraw {
 	return result;
     }
 
+    @JsonIgnore
     public void setResult(String result) {
 	this.result = result;
+    }
+
+    @JsonIgnore
+    public void setResult(Collection<Integer> resultNumbers) {
+	this.result = NumbersUtils.convertNumbersToText(resultNumbers);
+    }
+
+    @Override
+    public int hashCode() {
+	int hash = 7;
+	hash = 59 * hash + Objects.hashCode(this.date);
+	return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj) {
+	    return true;
+	}
+	if (obj == null) {
+	    return false;
+	}
+	if (getClass() != obj.getClass()) {
+	    return false;
+	}
+	final AbstractDraw other = (AbstractDraw) obj;
+	if (!Objects.equals(this.date, other.date)) {
+	    return false;
+	}
+	return true;
     }
 
 }

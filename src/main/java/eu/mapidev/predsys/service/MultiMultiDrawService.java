@@ -1,94 +1,85 @@
 package eu.mapidev.predsys.service;
 
 import eu.mapidev.predsys.domain.AbstractDraw;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import eu.mapidev.predsys.domain.MultiMultiDraw;
 import eu.mapidev.predsys.repository.MultiMultiDrawRepository;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 @Service
 @Qualifier("MultiMulti")
 public class MultiMultiDrawService implements DrawService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(MultiMultiDraw.class);
-
+    
     @Autowired
     private MultiMultiDrawRepository drawRepository;
-
+    
     @Override
     public Iterable<? extends AbstractDraw> getAllDraws() {
 	return drawRepository.findAll();
     }
-
+    
     @Override
     public AbstractDraw getDraw(LocalDateTime date) {
-	return drawRepository.findOne(date);
+	return drawRepository.findByDate(date);
     }
-
+    
     @Override
-    public AbstractDraw updateDraw(AbstractDraw draw) {
-	throw new UnsupportedOperationException("updateDraw not implemented yet");
-	/*
-	if (multiMultiDraw.isMulti() == multiMultiDraw.isTicket()) {
-	    throw new IllegalStateException("'multi' or 'ticket' must be different from null and can not be set in one request!");
+    public AbstractDraw createResult(AbstractDraw abstractDraw) {
+	String draw = abstractDraw.getDraw();
+	LocalDateTime localDateTime = abstractDraw.getDate();
+	MultiMultiDraw multiMultiDraw = (MultiMultiDraw) getDraw(localDateTime);
+	if (multiMultiDraw != null && multiMultiDraw.getDraw() == null) {
+	    multiMultiDraw.setDraw(draw);
+	    List<Integer> resultNumbers = calculateResult(multiMultiDraw);
+	    multiMultiDraw.setResult(resultNumbers);
+	    return drawRepository.save(multiMultiDraw);
 	}
-
-	if (drawRepository.exists(multiMultiDraw.getDate())) {
-	    MultiMultiDraw existingDraw = drawRepository.findOne(multiMultiDraw.getDate());
-	    if (existingDraw.isMulti() && existingDraw.isTicket()) {
-		throw new IllegalStateException("calculated draw can not be change!");
-	    } else if (existingDraw.isMulti() && multiMultiDraw.isTicket()) {
-		List<Integer> multiSet = existingDraw.getDrawAsNumbers();
-		List<Integer> ticketSet = multiMultiDraw.getTicketAsNumbers();
-
-		int[] resultArray = new int[3];
-		int i = 0;
-		for (Integer ticketValue : ticketSet) {
-		    if (multiSet.contains(ticketValue)) {
-			resultArray[i] = 1;
-		    }
-		    i++;
-		}
-
-		existingDraw.updateResult(resultArray);
-		existingDraw.setTicket((TreeSet<Integer>) ticketSet);
-		return drawRepository.save(existingDraw);
-
-	    } else if (existingDraw.isTicket() && multiMultiDraw.isMulti()) {
-		List<Integer> multiSet = multiMultiDraw.getDrawAsNumbers();
-		List<Integer> ticketSet = existingDraw.getTicketAsNumbers();
-
-		int[] resultArray = new int[3];
-		int i = 0;
-		for (Integer ticketValue : ticketSet) {
-		    if (multiSet.contains(ticketValue)) {
-			resultArray[i] = 1;
-		    }
-		    i++;
-		}
-
-		existingDraw.updateResult(resultArray);
-		existingDraw.setDraw((TreeSet<Integer>) multiSet);
-
-		return drawRepository.save(existingDraw);
-	    }
-
-	}
-	return drawRepository.save(multiMultiDraw);
-	 */
+	throw new IllegalStateException(
+		String.format("Cannot create result for draw %s with date %s ",
+			draw, localDateTime.toString()));
     }
-
+    
+    private List<Integer> calculateResult(AbstractDraw abstractDraw) {
+	List<Integer> resultNumbers = new ArrayList<>();
+	List<Integer> ticketNumbers = abstractDraw.getTicketAsNumbers();
+	List<Integer> drawNumbers = abstractDraw.getDrawAsNumbers();
+	
+	for (Integer ticketNumber : ticketNumbers) {
+	    resultNumbers.add(drawNumbers.contains(ticketNumber) ? 1 : 0);
+	}
+	return resultNumbers;
+    }
+    
     @Override
     public MultiMultiDraw getLastDraw() {
-	List<MultiMultiDraw> draws = drawRepository.findFirstByOrderByDateDesc();
+	List<MultiMultiDraw> draws = drawRepository.findFirstByOrderByDateAsc();
 	if (!draws.isEmpty()) {
 	    return draws.get(0);
 	}
 	throw new IllegalStateException("Last draw dosen't exist");
     }
+    
+    @Override
+    public AbstractDraw createTicketDraw(AbstractDraw abstractDraw) {
+	LocalDateTime localDateTime = abstractDraw.getDate();
+	MultiMultiDraw lastDraw = getLastDraw();
+	if (lastDraw == null || isNotNullAndHaveDraw(abstractDraw)) {
+	    return drawRepository.save(new MultiMultiDraw(localDateTime, abstractDraw.getTicket()));
+	}
+	throw new IllegalStateException("Another ticket exists! Cannot add new one, first update draw for it!");
+    }
+    
+    private boolean isNotNullAndHaveDraw(AbstractDraw abstractDraw) {
+	return abstractDraw.getDraw() != null && abstractDraw.getDraw() != null;
+    }
+    
+    @Override
+    public void deleteDraw(AbstractDraw abstractDraw) {
+	deleteDraw(abstractDraw);
+    }
+    
 }
