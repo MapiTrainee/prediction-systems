@@ -38,10 +38,10 @@ function renderDraws(multiMultiDraws) {
             var resultArray = multiMultiDraw.result;
             var counter = 0;
 
-            $.each(multiMultiDraw.ticket, function (l, t) {
+            $.each(multiMultiDraw.ticket, function (i, t) {
 
                 if (resultArray !== null) {
-                    if (resultArray[l] === 1) {
+                    if (resultArray[i] === 1) {
                         ticketTable.push("<td class='correct'>" + t + "</td>");
                         counter++;
                     } else {
@@ -66,7 +66,6 @@ function renderDraws(multiMultiDraws) {
                     maxPlus = steadyPlus;
 
                 steadyBlack = 0;
-
                 ticketTable.push("<td class='text-success'>" + "+" + 8.5 + "</td></tr>");
             } else if (counter === 3) {
                 amount += 40.5;
@@ -80,7 +79,6 @@ function renderDraws(multiMultiDraws) {
                     maxPlus = steadyPlus;
 
                 steadyBlack = 0;
-
                 ticketTable.push("<td class='text-success'>" + "+" + 40.5 + "</td></tr>");
             } else {
                 amount -= 7.5;
@@ -93,13 +91,11 @@ function renderDraws(multiMultiDraws) {
                     maxPlus = steadyPlus;
 
                 steadyPlus = 0;
-
                 ticketTable.push("<td class='text-danger'>" + "-" + 7.5 + "</td></tr>");
             }
         } else {
             ticketTable.push("<td>-</td><td>-</td><td>-</td><td>-</td></tr>");
         }
-
         $('#ticketTable').append(ticketTable.join(""));
 
     });
@@ -132,7 +128,6 @@ function renderDraws(multiMultiDraws) {
     $('#barTwoThird').css("width", barTwoThird + "%");
     $('#barCount').text(barCount + "%");
     $('#barCount').css("width", barCount + "%");
-
 }
 
 function getDraws() {
@@ -141,7 +136,7 @@ function getDraws() {
         url: "/multi",
         dataType: "json",
         error: function () {
-            alert("Błąd pobrania losów!");
+            alert("Cannot read draws from '/multi'");
         }
     });
 }

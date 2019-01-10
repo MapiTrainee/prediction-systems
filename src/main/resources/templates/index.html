@@ -30,7 +30,7 @@
             </div>
 
             <div class="panel-block acc">
-                <h3 id="progress-basic">Skuteczność</h3>
+                <h3 id="progress-basic">Stats</h3>
                 <div class="prog">
                     <div id="barThreeThird" class="progress-bar progress-bar-danger progress-bar-striped active" style="width: 33%">0</div>
                     <div id="barTwoThird" class="progress-bar progress-bar-warning progress-bar-striped active" style="width: 33%">0</div>
@@ -39,37 +39,37 @@
                 <div class="row text-center">
                     <div class="col-md-2">
                         <div class="panel panel-primary">
-                            <div class="panel-heading">Losowań</div>
+                            <div class="panel-heading">Number of draws</div>
                             <div id="count" class="panel-body">0</div>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="panel panel-warning">
-                            <div class="panel-heading">Trafionych 2/3</div>
+                            <div class="panel-heading">Hits 2/3</div>
                             <div id="twoThird" class="panel-body">0</div>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="panel panel-danger">
-                            <div class="panel-heading">Trafionych 3/3</div>
+                            <div class="panel-heading">Hits 3/3</div>
                             <div id="threeThird"  class="panel-body">0</div>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="panel panel-black">
-                            <div class="panel-heading">Czarna Seria</div>
+                            <div class="panel-heading">Black series</div>
                             <div id="blackSeries" class="panel-body">0</div>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="panel panel-success">
-                            <div class="panel-heading">Plus Seria</div>
+                            <div class="panel-heading">Plus series</div>
                             <div id="plusSeries" class="panel-body">0</div>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="panel panel-info">
-                            <div class="panel-heading">Stan konta</div>
+                            <div class="panel-heading">Credit</div>
                             <div id="amount" class="panel-body">0</div>
                         </div>
                     </div>
@@ -77,11 +77,11 @@
             </div>
 
             <div>
-                <h3 id="progress-basic">Lista typów</h3>
+                <h3 id="progress-basic">List of draws</h3>
                 <div class="row text-center">
                     <div class="col-md-10">
                         <div class="panel panel-info">
-                            <div class="panel-heading">Wyniki</div>
+                            <div class="panel-heading">Results</div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-condensed">
                                     <tbody id="multiTable"></tbody>
@@ -91,7 +91,7 @@
                     </div>
                     <div class="col-md-2">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Typy</div>
+                            <div class="panel-heading">Tickets</div>
                             <table class="table table-bordered table-condensed">
                                 <tbody id="ticketTable">
                                 </tbody>
@@ -100,38 +100,8 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Historia typów -->
-            <!--            <div>
-                            <h3>Historia typów</h3>
-                            <div class="row text-center">
-                                <div class="col-md-12">
-                                    <div class="panel panel-primary">
-                                        <div class="panel-heading">Statystyki</div>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered table-condensed">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Rok-miesiąc</td>
-                                                        <td>Trafień 2/3</td>
-                                                        <td>Trafień 3/3</td>
-                                                        <td>Procent trafień</td>
-                                                        <td>Stan konta</td>
-                                                        <td>Czarna seria</td>
-                                                        <td>Plus seria</td>
-                                                        <td>Losowań</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>-->
-            <!-- /Historia typów -->
-
         </div>
-        <footer class="text-center text-info">© 2016-2017 MultiMulti</footer>
+        <footer class="text-center text-info">MultiMulti © 2019</footer>
 
         <!-- PLUGINS -->
         <script src="../static/js/jquery.min.js" th:src="@{js/jquery.min.js}"></script>
