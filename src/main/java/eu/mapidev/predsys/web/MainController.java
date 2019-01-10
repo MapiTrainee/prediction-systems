@@ -10,4 +10,9 @@ public class MainController {
     public String listIndex() {
 	return "index";
     }
+    
+    @GetMapping("/multi")
+    public String listMulti(){
+	return "multi";
+    }
 }
