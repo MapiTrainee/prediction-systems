@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>eu.mapidev.predsys</groupId>
-    <artifactId>MultiSystem</artifactId>
+    <artifactId>PredictionSystems</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>MultiSystem</name>
+    <name>PredictionSystems</name>
     
     <parent>
         <groupId>org.springframework.boot</groupId>
