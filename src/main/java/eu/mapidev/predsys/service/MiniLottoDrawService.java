@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-@Qualifier("MultiMultiServ")
-public class MultiMultiDrawService extends AbstractDrawService {
+@Qualifier("MiniLottoServ")
+public class MiniLottoDrawService extends AbstractDrawService {
 
     @Autowired
-    public MultiMultiDrawService(@Qualifier("MultiMultiRep") AbstractDrawRepository drawRepository) {
+    public MiniLottoDrawService(@Qualifier("MiniLottoRep") AbstractDrawRepository drawRepository) {
 	super(drawRepository);
     }
 
