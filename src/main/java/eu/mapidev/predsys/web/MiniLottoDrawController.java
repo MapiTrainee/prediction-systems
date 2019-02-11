@@ -6,13 +6,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/multi")
+@RequestMapping("/mini")
 @RestController
-public class MultiMultiDrawController extends AbstractDrawController {
+public class MiniLottoDrawController extends AbstractDrawController {
 
     @Autowired
-    public MultiMultiDrawController(@Qualifier("MultiMultiServ") DrawService service) {
+    public MiniLottoDrawController(@Qualifier("MiniLottoServ") DrawService service) {
 	super(service);
     }
-
 }

@@ -37,11 +37,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	httpSecurity.authorizeRequests()
 		.antMatchers("/profile", "/console/**").hasRole("ADMIN")
 		.antMatchers(HttpMethod.GET, "/multi/**").permitAll()
+		.antMatchers(HttpMethod.GET, "/mini/**").permitAll()
 		.antMatchers(AUTH_WHITELIST).permitAll()
 		.antMatchers("/").permitAll()
 		.anyRequest().authenticated()
 		.and().httpBasic()
-		.and().csrf().ignoringAntMatchers("/console/**", "/multi/**")
+		.and().csrf().ignoringAntMatchers("/console/**", "/multi/**","/mini/**")
 		.and().headers().frameOptions().sameOrigin();
     }
 

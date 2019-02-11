@@ -15,4 +15,9 @@ public class MainController {
     public String listMulti(){
 	return "multi";
     }
+    
+    @GetMapping("/mini")
+    public String listMini(){
+	return "mini";
+    }
 }
